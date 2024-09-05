@@ -1,22 +1,20 @@
 "use client";
 
 import { useStoreContext } from "@/store/useStoreContext";
-import { typesOfMaps } from "@/utils/utils";
 import * as Accordion from "@radix-ui/react-accordion";
 import { Flex } from "@radix-ui/themes";
 import classNames from "classnames";
 import { ChevronDownIcon } from "lucide-react";
 import React from "react";
-import { useThemeContext } from "@radix-ui/themes";
-import MapTypeCard from "./Cards/MapTypeCard";
+import DroppedPinCard from "./Cards/DroppedPinCard";
 
-const MapTypes = () => {
-    const { mapType, changeMapType } = useStoreContext((s) => {
-        return {
-            mapType: s.mapType,
-            changeMapType: s.changeMapType,
-        };
-    });
+const AddedPins = () => {
+    const { non_save_mapPoints, getToMapPoint, removeMapPoint } =
+        useStoreContext((s) => ({
+            non_save_mapPoints: s.non_save_mapPoints,
+            getToMapPoint: s.getToMapPoint,
+            removeMapPoint: s.removeMapPoint,
+        }));
 
     return (
         <Accordion.Root type="single" defaultValue="item-1" collapsible>
@@ -25,17 +23,17 @@ const MapTypes = () => {
                 className="bg-muted rounded-sm overflow-auto"
             >
                 <AccordionTrigger className=" rounded-sm">
-                    <span className="font-bold text-sm">Types of Map</span>
+                    <span className="font-bold text-sm">Dropped Pins</span>
                 </AccordionTrigger>
                 <AccordionContent className="px-2">
-                    <Flex wrap={"wrap"} gap="1" className="cursor-pointer pb-2">
-                        {typesOfMaps.map((mType) => {
+                    <Flex wrap={"wrap"} gap="1" className="pb-2">
+                        {non_save_mapPoints.map((pin) => {
                             return (
-                                <MapTypeCard
-                                    key={mType.name}
-                                    mapType={mType}
-                                    handleChange={changeMapType}
-                                    isSelected={mType.name === mapType.name}
+                                <DroppedPinCard
+                                    key={pin.osm_id}
+                                    location={pin}
+                                    getToMapPoint={getToMapPoint}
+                                    removeMapPoint={removeMapPoint}
                                 />
                             );
                         })}
@@ -46,7 +44,7 @@ const MapTypes = () => {
     );
 };
 
-export default MapTypes;
+export default AddedPins;
 
 const AccordionTrigger = React.forwardRef(
     ({ children, className, ...props }, forwardedRef) => (

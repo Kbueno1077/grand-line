@@ -19,7 +19,7 @@ function SidebarToggle() {
                 variant="ghost"
                 className="cursor-pointer"
             >
-                {isSidebarOpen ? <PanelRightClose /> : <PanelRightOpen />}
+                {!isSidebarOpen ? <PanelRightClose /> : <PanelRightOpen />}
             </IconButton>
         </>
     );

@@ -1,17 +1,41 @@
 "use client";
+import L from "leaflet";
 import { icon } from "leaflet";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { useEffect } from "react";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 
 import { useStoreContext } from "@/store/useStoreContext";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet/dist/leaflet.css";
-import { useTheme } from "next-themes";
+
+function ChangeCenterView({ selectedPoint }: { selectedPoint: any }) {
+    console.log("🚀 ~ ChangeCenterView ~ selectedPoint:", selectedPoint);
+    const map = useMap();
+
+    useEffect(() => {
+        if (selectedPoint) {
+            map.setView(
+                new L.LatLng(selectedPoint?.lat, selectedPoint?.lon),
+                map.getZoom(),
+                {
+                    animate: true,
+                }
+            );
+        }
+    }, [selectedPoint?.pressTime]);
+
+    return null;
+}
 
 function RenderMap() {
-    const { mapType } = useStoreContext((s) => ({
-        mapType: s.mapType,
-    }));
+    const { mapType, non_save_mapPoints, pinToGetAt } = useStoreContext(
+        (s) => ({
+            mapType: s.mapType,
+            non_save_mapPoints: s.non_save_mapPoints,
+            pinToGetAt: s.pinToGetAt,
+        })
+    );
 
     const ICON = icon({
         iconUrl: "/location.png",
@@ -26,7 +50,7 @@ function RenderMap() {
                 minZoom={3}
                 scrollWheelZoom={true}
                 style={{
-                    height: "100dvh",
+                    height: "calc(100dvh - 63px)",
                     width: "100vw",
                 }}
             >
@@ -44,6 +68,19 @@ function RenderMap() {
                         34741
                     </Popup>
                 </Marker>
+
+                {non_save_mapPoints.map((location) => {
+                    return (
+                        <Marker
+                            position={[location.lat, location.lon]}
+                            // icon={ICON}
+                        >
+                            <Popup>{location.display_name}</Popup>
+                        </Marker>
+                    );
+                })}
+
+                <ChangeCenterView selectedPoint={pinToGetAt} />
             </MapContainer>
         </div>
     );

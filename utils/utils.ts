@@ -15,6 +15,28 @@ export function encodedRedirect(
 }
 
 export const typesOfMaps = [
+    //MAP TILER
+
+    {
+        name: "Basic",
+        url: "https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=9xD3QnX7lh5EgjhfLmMm",
+        attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+    {
+        name: "Basic Dark",
+        url: "https://api.maptiler.com/maps/streets-v2-dark/{z}/{x}/{y}.png?key=9xD3QnX7lh5EgjhfLmMm",
+        attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+
+    {
+        name: "Satellite",
+        url: "https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=9xD3QnX7lh5EgjhfLmMm",
+        attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+
     //OPEN STREET MAP
     {
         name: "OpenStreetMap",
@@ -67,7 +89,9 @@ export const typesOfMaps = [
         url: "https://tile.openstreetmap.bzh/br/{z}/{x}/{y}.png",
         ext: "png",
     },
+];
 
+const otherMaps = [
     //OPNV MAPS
     {
         name: "OPNVKarte",

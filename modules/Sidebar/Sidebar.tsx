@@ -2,6 +2,8 @@
 
 import MapTypes from "@/components/MapSettings/MapTypes";
 import { useStoreContext } from "@/store/useStoreContext";
+import LocationSearch from "../LocationSearch/LocationSearch";
+import AddedPins from "@/components/MapSettings/AddedPins";
 
 function Sidebar() {
     const { isSidebarOpen } = useStoreContext((s) => ({
@@ -11,14 +13,18 @@ function Sidebar() {
     return (
         <div>
             <div
-                className={`h-screen transition-all duration-250 ease-in-out  z-50 p-2 ${
-                    isSidebarOpen ? "w-[270px]" : "w-[75px]"
+                className={`h-screen transition-all duration-250 ease-in-out z-50 p-2 ${
+                    isSidebarOpen
+                        ? "w-[320px]"
+                        : "p-0 w-[0px] sm:p-2 sm:w-[65px]"
                 }`}
             >
                 {isSidebarOpen && (
-                    <>
+                    <div className="flex flex-col gap-2">
+                        <LocationSearch />
+                        <AddedPins />
                         <MapTypes />
-                    </>
+                    </div>
                 )}
 
                 {!isSidebarOpen && (

@@ -9,9 +9,16 @@ import { MapType } from "@/utils/types";
 export interface StoreProps {
     isSidebarOpen: boolean;
     mapType: MapType;
+    non_save_mapPoints: any[];
+    pinToGetAt: any;
 
-    setIsSidebarOpen: (isSidebarOpen: boolean) => void;
+    getToMapPoint: (mapPoint: any) => void;
+    addMapPoint: (mapPoint: any) => void;
+    removeMapPoint: (mapPoint: any) => void;
     changeMapType: (mapType: MapType) => void;
+
+    // LAYOUT
+    setIsSidebarOpen: (isSidebarOpen: boolean) => void;
 }
 export type MapStore = ReturnType<typeof createMapsStore>;
 
@@ -29,7 +36,9 @@ export const createMapsStore = (initProps: InitialProps) => {
             }),
             {
                 name: "save-maps-config",
-                partialize: (state) => ({}),
+                partialize: (state) => ({
+                    non_save_mapPoints: state.non_save_mapPoints,
+                }),
             }
         )
     );
