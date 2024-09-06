@@ -58,7 +58,7 @@ function RenderMap() {
                     url={mapType?.url || ""}
                 />
 
-                <Marker
+                {/* <Marker
                     position={[28.34732370882098, -81.41418625023127]}
                     // icon={ICON}
                 >
@@ -66,7 +66,7 @@ function RenderMap() {
                         Evan Home Care, 1101 Miranda Ln. Suite 127 Kissimmee, FL
                         34741
                     </Popup>
-                </Marker>
+                </Marker> */}
 
                 {non_save_mapPoints.map((location) => {
                     return (

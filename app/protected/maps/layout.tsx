@@ -7,7 +7,12 @@ export default async function Layout({
 }) {
     return (
         <div>
-            <div className="flex items-center">
+            <div
+                className="flex"
+                style={{
+                    height: "calc(100dvh - 63px)",
+                }}
+            >
                 <Sidebar />
                 {children}
             </div>

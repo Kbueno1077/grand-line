@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { Providers } from "./providers";
+import Footer from "@/modules/Footer/Footer";
 
 const defaultUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
@@ -30,22 +31,10 @@ export default function RootLayout({
                     <Navbar />
 
                     <main className="">
-                        <div className="flex flex-col gap-20 ">
+                        <div className="flex flex-col ">
                             {children}
 
-                            <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-                                <p>
-                                    Powered by{" "}
-                                    <a
-                                        href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-                                        target="_blank"
-                                        className="font-bold hover:underline"
-                                        rel="noreferrer"
-                                    >
-                                        Supabase
-                                    </a>
-                                </p>
-                            </footer>
+                            <Footer />
                         </div>
                     </main>
                 </Providers>

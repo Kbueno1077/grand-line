@@ -66,6 +66,7 @@ const AddedPins = () => {
                                     getToMapPoint={getToMapPoint}
                                     removeMapPoint={removeMapPoint}
                                     removeFromFavorites={removeFavorite}
+                                    isStatic={false}
                                     addToFavorites={addFavorite}
                                     isFavorite={favorites["Pins"]?.find(
                                         (f) => f.osm_id === pin.osm_id

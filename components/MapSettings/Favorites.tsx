@@ -10,17 +10,20 @@ import {
 } from "./_components/AccordionComponents";
 import { Star } from "lucide-react";
 import MapTypeCard from "./Cards/MapTypeCard";
+import DroppedPinCard from "./Cards/DroppedPinCard";
 
 const Favorites = () => {
     const {
         favorites,
         mapType,
         changeMapType,
+        getToMapPoint,
         addToFavorites,
         removeFromFavorite,
     } = useStoreContext((s) => ({
         favorites: s.favorites,
         mapType: s.mapType,
+        getToMapPoint: s.getToMapPoint,
         removeFromFavorite: s.removeFromFavorite,
         addToFavorites: s.addToFavorites,
         changeMapType: s.changeMapType,
@@ -63,16 +66,17 @@ const Favorites = () => {
 
                     <Flex wrap={"wrap"} gap="1" className="pb-2">
                         {favorites["Pins"] &&
-                            favorites["Pins"].map((mType) => {
+                            favorites["Pins"].map((location) => {
                                 return (
-                                    <MapTypeCard
-                                        key={mType.name}
-                                        mapType={mType}
-                                        handleChange={changeMapType}
+                                    <DroppedPinCard
+                                        key={location.osm_id}
+                                        location={location}
                                         addToFavorites={addFavorite}
                                         removeFromFavorites={removeFavorite}
                                         isFavorite={true}
-                                        isSelected={mType.name === mapType.name}
+                                        isStatic={true}
+                                        getToMapPoint={getToMapPoint}
+                                        removeMapPoint={() => {}}
                                     />
                                 );
                             })}

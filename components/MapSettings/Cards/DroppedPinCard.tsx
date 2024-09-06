@@ -6,15 +6,16 @@ function DroppedPinCard({
     location,
     getToMapPoint,
     removeMapPoint,
-    index,
+    index = -1,
     removeFromFavorites,
     addToFavorites,
     isFavorite,
+    isStatic,
 }) {
     return (
         <Card className={`w-full  transition-all duration-300 ease-in-out`}>
             <Box className="w-full flex items-center justify-between">
-                {!isFavorite ? (
+                {!isStatic ? (
                     <NameFieldUpdate
                         name={location.tagName ?? location.display_name}
                         index={index}
@@ -25,7 +26,9 @@ function DroppedPinCard({
                     </Text>
                 )}
 
-                <div className="flex flex-col items-center gap-2.5">
+                <div
+                    className={`flex  items-center gap-2.5 ${isStatic ? "flex-row" : "flex-col"}`}
+                >
                     <IconButton
                         variant="ghost"
                         color="amber"
@@ -44,6 +47,7 @@ function DroppedPinCard({
                             }
                         />
                     </IconButton>
+
                     <IconButton
                         onClick={() => getToMapPoint(location)}
                         className="cursor-pointer"
@@ -51,14 +55,16 @@ function DroppedPinCard({
                     >
                         <Goal size={20} />
                     </IconButton>
-                    <IconButton
-                        onClick={() => removeMapPoint(location)}
-                        className="cursor-pointer"
-                        variant="ghost"
-                        color="red"
-                    >
-                        <CircleX size={20} />
-                    </IconButton>
+                    {!isStatic && (
+                        <IconButton
+                            onClick={() => removeMapPoint(location)}
+                            className="cursor-pointer"
+                            variant="ghost"
+                            color="red"
+                        >
+                            <CircleX size={20} />
+                        </IconButton>
+                    )}
                 </div>
             </Box>
         </Card>

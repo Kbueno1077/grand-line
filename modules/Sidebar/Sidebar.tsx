@@ -12,11 +12,15 @@ function Sidebar() {
     }));
 
     return (
-        <div>
+        <div
+            className={
+                "absolute sm:relative bg-background h-screen sm:h-max z-[1001]"
+            }
+        >
             <div
-                className={`h-screen transition-all duration-250 ease-in-out z-50 p-2 ${
+                className={`transition-all duration-250 ease-in-out z-50 ${
                     isSidebarOpen
-                        ? "w-[320px]"
+                        ? "w-[320px] p-2 "
                         : "p-0 w-[0px] sm:p-2 sm:w-[65px]"
                 }`}
             >
@@ -30,9 +34,9 @@ function Sidebar() {
                 )}
 
                 {!isSidebarOpen && (
-                    <>
+                    <div className="hidden sm:block">
                         <p>Contracted</p>
-                    </>
+                    </div>
                 )}
             </div>
         </div>
