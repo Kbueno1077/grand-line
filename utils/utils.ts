@@ -14,6 +14,10 @@ export function encodedRedirect(
     return redirect(`${path}?${type}=${encodeURIComponent(message)}`);
 }
 
+export const deepClone = <T>(originalObject: T): T => {
+    return structuredClone(originalObject) as T;
+};
+
 export const typesOfMaps = [
     //MAP TILER
 
@@ -22,12 +26,14 @@ export const typesOfMaps = [
         url: "https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=9xD3QnX7lh5EgjhfLmMm",
         attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        img: "/maps/basic.png",
     },
     {
         name: "Basic Dark",
-        url: "https://api.maptiler.com/maps/streets-v2-dark/{z}/{x}/{y}.png?key=9xD3QnX7lh5EgjhfLmMm",
+        url: "https://api.maptiler.com/maps/basic-v2-dark/{z}/{x}/{y}.png?key=9xD3QnX7lh5EgjhfLmMm",
         attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        img: "/maps/basic-dark.png",
     },
 
     {
@@ -35,6 +41,7 @@ export const typesOfMaps = [
         url: "https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=9xD3QnX7lh5EgjhfLmMm",
         attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        img: "/maps/satellite.png",
     },
 
     //OPEN STREET MAP

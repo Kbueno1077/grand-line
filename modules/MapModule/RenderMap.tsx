@@ -10,7 +10,6 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet/dist/leaflet.css";
 
 function ChangeCenterView({ selectedPoint }: { selectedPoint: any }) {
-    console.log("🚀 ~ ChangeCenterView ~ selectedPoint:", selectedPoint);
     const map = useMap();
 
     useEffect(() => {
@@ -75,7 +74,10 @@ function RenderMap() {
                             position={[location.lat, location.lon]}
                             // icon={ICON}
                         >
-                            <Popup>{location.display_name}</Popup>
+                            <Popup>
+                                {location.tagName ?? ""} -{" "}
+                                {location.display_name}
+                            </Popup>
                         </Marker>
                     );
                 })}

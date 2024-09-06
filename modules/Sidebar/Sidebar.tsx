@@ -4,6 +4,7 @@ import MapTypes from "@/components/MapSettings/MapTypes";
 import { useStoreContext } from "@/store/useStoreContext";
 import LocationSearch from "../LocationSearch/LocationSearch";
 import AddedPins from "@/components/MapSettings/AddedPins";
+import Favorites from "@/components/MapSettings/Favorites";
 
 function Sidebar() {
     const { isSidebarOpen } = useStoreContext((s) => ({
@@ -22,6 +23,7 @@ function Sidebar() {
                 {isSidebarOpen && (
                     <div className="flex flex-col gap-2">
                         <LocationSearch />
+                        <Favorites />
                         <AddedPins />
                         <MapTypes />
                     </div>

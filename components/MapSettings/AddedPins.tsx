@@ -3,18 +3,39 @@
 import { useStoreContext } from "@/store/useStoreContext";
 import * as Accordion from "@radix-ui/react-accordion";
 import { Flex } from "@radix-ui/themes";
-import classNames from "classnames";
-import { ChevronDownIcon } from "lucide-react";
-import React from "react";
 import DroppedPinCard from "./Cards/DroppedPinCard";
+import {
+    AccordionContent,
+    AccordionTrigger,
+} from "./_components/AccordionComponents";
+import { Pin } from "lucide-react";
 
 const AddedPins = () => {
-    const { non_save_mapPoints, getToMapPoint, removeMapPoint } =
-        useStoreContext((s) => ({
-            non_save_mapPoints: s.non_save_mapPoints,
-            getToMapPoint: s.getToMapPoint,
-            removeMapPoint: s.removeMapPoint,
-        }));
+    const {
+        non_save_mapPoints,
+        favorites,
+        getToMapPoint,
+        removeMapPoint,
+        addToFavorites,
+        removeFromFavorite,
+    } = useStoreContext((s) => ({
+        non_save_mapPoints: s.non_save_mapPoints,
+        favorites: s.favorites,
+        addToFavorites: s.addToFavorites,
+        removeFromFavorite: s.removeFromFavorite,
+        getToMapPoint: s.getToMapPoint,
+        removeMapPoint: s.removeMapPoint,
+    }));
+
+    const addFavorite = (e, mType) => {
+        e.stopPropagation();
+        addToFavorites(mType, "Pins");
+    };
+
+    const removeFavorite = (e, mType) => {
+        e.stopPropagation();
+        removeFromFavorite(mType, "Pins");
+    };
 
     return (
         <Accordion.Root type="single" defaultValue="item-1" collapsible>
@@ -23,17 +44,32 @@ const AddedPins = () => {
                 className="bg-muted rounded-sm overflow-auto"
             >
                 <AccordionTrigger className=" rounded-sm">
-                    <span className="font-bold text-sm">Dropped Pins</span>
+                    <div className="flex gap-2 items-center">
+                        <Pin size={20} strokeWidth={1} />
+                        <h2 className="font-bold text-sm">Pins</h2>
+                    </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-2">
-                    <Flex wrap={"wrap"} gap="1" className="pb-2">
-                        {non_save_mapPoints.map((pin) => {
+                    <Flex wrap={"wrap"} gap="1" className="pb-2 ">
+                        {non_save_mapPoints.length === 0 && (
+                            <h3 className="text-center w-full py-2">
+                                No points to show
+                            </h3>
+                        )}
+
+                        {non_save_mapPoints.map((pin, index) => {
                             return (
                                 <DroppedPinCard
                                     key={pin.osm_id}
                                     location={pin}
+                                    index={index}
                                     getToMapPoint={getToMapPoint}
                                     removeMapPoint={removeMapPoint}
+                                    removeFromFavorites={removeFavorite}
+                                    addToFavorites={addFavorite}
+                                    isFavorite={favorites["Pins"]?.find(
+                                        (f) => f.osm_id === pin.osm_id
+                                    )}
                                 />
                             );
                         })}
@@ -45,39 +81,3 @@ const AddedPins = () => {
 };
 
 export default AddedPins;
-
-const AccordionTrigger = React.forwardRef(
-    ({ children, className, ...props }, forwardedRef) => (
-        <Accordion.Header className="flex">
-            <Accordion.Trigger
-                className={classNames(
-                    "cursor-pointer group flex h-[45px] flex-1  items-center justify-between px-2 leading-none  outline-none",
-                    className
-                )}
-                {...props}
-                ref={forwardedRef}
-            >
-                {children}
-                <ChevronDownIcon
-                    className="text-violet10 ease-[cubic-bezier(0.87,_0,_0.13,_1)] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                    aria-hidden
-                />
-            </Accordion.Trigger>
-        </Accordion.Header>
-    )
-);
-
-const AccordionContent = React.forwardRef(
-    ({ children, className, ...props }, forwardedRef) => (
-        <Accordion.Content
-            className={classNames(
-                "text-mauve11 bg-mauve2 data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden text-[15px]",
-                className
-            )}
-            {...props}
-            ref={forwardedRef}
-        >
-            <div className="">{children}</div>
-        </Accordion.Content>
-    )
-);

@@ -2,12 +2,12 @@
 
 import { useDebounce } from "@/hooks/useDebounce";
 import { useStoreContext } from "@/store/useStoreContext";
-import { Spinner, TextField } from "@radix-ui/themes";
+import { IconButton, Spinner, TextField } from "@radix-ui/themes";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { MapPin, Search } from "lucide-react";
+import { CircleX, MapPin, Search } from "lucide-react";
 import React from "react";
 
-const NOMINATIN_BASE_URL = "   https://nominatim.openstreetmap.org/search?";
+const NOMINATIN_BASE_URL = "https://nominatim.openstreetmap.org/search?";
 const DEBOUNCE_DELAY = 500;
 
 function LocationSearch() {
@@ -24,6 +24,12 @@ function LocationSearch() {
     const handleChange = (e: any) => {
         setIsLoading(true);
         setSearchValue(e.target.value);
+    };
+
+    const clearSearch = () => {
+        setSearchValue("");
+        setLocationData([]);
+        setIsLoading(false);
     };
 
     const handleSearch = async () => {
@@ -85,6 +91,19 @@ function LocationSearch() {
                 <TextField.Slot>
                     {isLoading ? <Spinner /> : <Search size={20} />}
                 </TextField.Slot>
+
+                {searchValue && (
+                    <TextField.Slot>
+                        <IconButton
+                            variant="ghost"
+                            onClick={clearSearch}
+                            className="cursor-pointer"
+                            color="red"
+                        >
+                            <CircleX size={20} />
+                        </IconButton>
+                    </TextField.Slot>
+                )}
             </TextField.Root>
 
             {locationData.length > 0 && (
@@ -94,6 +113,8 @@ function LocationSearch() {
                             return (
                                 <div
                                     onClick={() => {
+                                        setSearchValue("");
+                                        setLocationData([]);
                                         addMapPoint(item);
                                     }}
                                     key={item?.osm_id}

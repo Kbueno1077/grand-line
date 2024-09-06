@@ -1,9 +1,21 @@
+import { deepClone } from "./../../utils/utils";
 import { typesOfMaps } from "@/utils/utils";
 
 export const createMapSettingsSlice = (set: Function, get: Function) => ({
     mapType: typesOfMaps[0],
     non_save_mapPoints: [],
     pinToGetAt: null,
+
+    changeMapPointDisplayName: (name, index) => {
+        console.log(name);
+        const non_save_mapPoints = deepClone(get().non_save_mapPoints);
+        non_save_mapPoints[index].tagName = name;
+
+        set((state) => ({
+            ...state,
+            non_save_mapPoints,
+        }));
+    },
 
     getToMapPoint: (mapPoint) => {
         set((state) => ({
