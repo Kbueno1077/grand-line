@@ -14,7 +14,7 @@ function Sidebar() {
     return (
         <div
             className={
-                "absolute sm:relative bg-background h-screen sm:h-max z-[1001]"
+                "absolute sm:relative bg-background sm:bg-transparent h-screen sm:h-max z-[1001]"
             }
         >
             <div
