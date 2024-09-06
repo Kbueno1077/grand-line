@@ -1,9 +1,10 @@
 import { Box, Container, Flex, Text, Link, Separator } from "@radix-ui/themes";
-import { Github, Linkedin } from "lucide-react";
+import { Earth, Github, Linkedin } from "lucide-react";
 
 export default function Footer() {
     return (
         <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
+            <Earth strokeWidth={1} />
             <p>
                 Powered by{" "}
                 <a

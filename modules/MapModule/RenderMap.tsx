@@ -8,6 +8,7 @@ import { useStoreContext } from "@/store/useStoreContext";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet/dist/leaflet.css";
+import MinimapControl from "@/components/MiniMap/MiniMap";
 
 function ChangeCenterView({ selectedPoint }: { selectedPoint: any }) {
     const map = useMap();
@@ -50,7 +51,6 @@ function RenderMap() {
                 scrollWheelZoom={true}
                 style={{
                     height: "calc(100dvh - 63px)",
-                    width: "100vw",
                 }}
             >
                 <TileLayer
@@ -83,6 +83,7 @@ function RenderMap() {
                 })}
 
                 <ChangeCenterView selectedPoint={pinToGetAt} />
+                <MinimapControl position="topright" />
             </MapContainer>
         </div>
     );

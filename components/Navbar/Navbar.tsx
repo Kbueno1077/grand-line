@@ -9,7 +9,9 @@ function Navbar() {
             <div className="w-full flex justify-between items-center p-3 px-5 text-sm">
                 <div className="flex gap-5 items-center font-semibold">
                     <SidebarToggle />
-                    <Link href={"/"}>F Maps</Link>
+                    <Link href={"#"} className="text-xl">
+                        Grand Line Maps
+                    </Link>
                     <div className="flex items-center gap-2"></div>
                 </div>
 
