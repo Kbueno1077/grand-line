@@ -28,20 +28,16 @@ const Favorites = () => {
         addToFavorites: s.addToFavorites,
         changeMapType: s.changeMapType,
     }));
-
-    console.log(
-        "🚀 ~ const{favorites}=useStoreContext ~ favorites:",
-        favorites
-    );
+    console.log("🚀 ~ Favorites ~ favorites:", favorites);
 
     const addFavorite = (e, mType) => {
         e.stopPropagation();
         addToFavorites(mType, "Maps");
     };
 
-    const removeFavorite = (e, mType) => {
+    const removeFavorite = (e, selected, type) => {
         e.stopPropagation();
-        removeFromFavorite(mType, "Maps");
+        removeFromFavorite(selected, type);
     };
 
     return (
@@ -72,11 +68,12 @@ const Favorites = () => {
                                         key={location.osm_id}
                                         location={location}
                                         addToFavorites={addFavorite}
-                                        removeFromFavorites={removeFavorite}
+                                        removeFromFavorites={(e, selected) =>
+                                            removeFavorite(e, selected, "Pins")
+                                        }
                                         isFavorite={true}
                                         isStatic={true}
                                         getToMapPoint={getToMapPoint}
-                                        removeMapPoint={() => {}}
                                     />
                                 );
                             })}
@@ -89,7 +86,9 @@ const Favorites = () => {
                                         mapType={mType}
                                         handleChange={changeMapType}
                                         addToFavorites={addFavorite}
-                                        removeFromFavorites={removeFavorite}
+                                        removeFromFavorites={(e, selected) =>
+                                            removeFavorite(e, selected, "Maps")
+                                        }
                                         isFavorite={true}
                                         isSelected={mType.name === mapType.name}
                                     />

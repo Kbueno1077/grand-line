@@ -1,11 +1,11 @@
 import { Box, Card, Flex, IconButton, Text } from "@radix-ui/themes";
 import { CircleX, Goal, Star } from "lucide-react";
 import NameFieldUpdate from "../_components/NameFieldUpdate";
+import EditPinsPopup from "../_components/EditPinsPopup";
 
 function DroppedPinCard({
     location,
     getToMapPoint,
-    removeMapPoint,
     index = -1,
     removeFromFavorites,
     addToFavorites,
@@ -15,20 +15,11 @@ function DroppedPinCard({
     return (
         <Card className={`w-full  transition-all duration-300 ease-in-out`}>
             <Box className="w-full flex items-center justify-between">
-                {!isStatic ? (
-                    <NameFieldUpdate
-                        name={location.tagName ?? location.display_name}
-                        index={index}
-                    />
-                ) : (
-                    <Text as="div" size="2" color="gray">
-                        {location.tagName ?? location.display_name}
-                    </Text>
-                )}
+                <Text as="div" size="2" color="gray">
+                    {location.tagName ?? location.display_name}
+                </Text>
 
-                <div
-                    className={`flex  items-center gap-2.5 ${isStatic ? "flex-row" : "flex-col"}`}
-                >
+                <div className={`flex  items-center gap-2.5 `}>
                     <IconButton
                         variant="ghost"
                         color="amber"
@@ -55,15 +46,9 @@ function DroppedPinCard({
                     >
                         <Goal size={20} />
                     </IconButton>
+
                     {!isStatic && (
-                        <IconButton
-                            onClick={() => removeMapPoint(location)}
-                            className="cursor-pointer"
-                            variant="ghost"
-                            color="red"
-                        >
-                            <CircleX size={20} />
-                        </IconButton>
+                        <EditPinsPopup location={location} index={index} />
                     )}
                 </div>
             </Box>

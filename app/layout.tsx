@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { Providers } from "./providers";
-import Footer from "@/modules/Footer/Footer";
+import Footer from "@/components/Footer/Footer";
 
 const defaultUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`

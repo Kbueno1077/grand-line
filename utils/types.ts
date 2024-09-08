@@ -5,3 +5,11 @@ export type MapType = {
     ext?: string;
     img?: string;
 };
+
+export type Map = {
+    id?: string;
+    name: string;
+    description?: string;
+    user_id?: string;
+    created_at?: string;
+};

@@ -3,7 +3,15 @@ import { typesOfMaps } from "@/utils/utils";
 
 export const createMapSettingsSlice = (set: Function, get: Function) => ({
     mapType: typesOfMaps[0],
-    non_save_mapPoints: [],
+    non_save_mapPoints: [
+        {
+            display_name: "Love of my Life",
+            osm_id: "1",
+            lat: 22.409756,
+            lon: -79.966421,
+            useLoveIcon: true,
+        },
+    ],
     pinToGetAt: null,
 
     changeMapPointDisplayName: (name, index) => {

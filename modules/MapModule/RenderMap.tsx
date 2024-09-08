@@ -1,6 +1,5 @@
 "use client";
-import L from "leaflet";
-import { icon } from "leaflet";
+import L, { icon } from "leaflet";
 import { useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 
@@ -8,7 +7,7 @@ import { useStoreContext } from "@/store/useStoreContext";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet/dist/leaflet.css";
-import MinimapControl from "@/components/MiniMap/MiniMap";
+import MinimapControl from "@/components/MapSettings/MiniMap/MiniMap";
 
 function ChangeCenterView({ selectedPoint }: { selectedPoint: any }) {
     const map = useMap();
@@ -38,7 +37,7 @@ function RenderMap() {
     );
 
     const ICON = icon({
-        iconUrl: "/location.png",
+        iconUrl: "/heart.png",
         iconSize: [32, 32],
     });
 
@@ -58,22 +57,27 @@ function RenderMap() {
                     url={mapType?.url || ""}
                 />
 
-                {/* <Marker
-                    position={[28.34732370882098, -81.41418625023127]}
-                    // icon={ICON}
-                >
-                    <Popup>
-                        Evan Home Care, 1101 Miranda Ln. Suite 127 Kissimmee, FL
-                        34741
-                    </Popup>
+                {/* <Marker position={[22.409756, -79.966421]} icon={ICON}>
+                    <Popup>Love of my Life</Popup>
                 </Marker> */}
 
                 {non_save_mapPoints.map((location) => {
+                    if (location.useLoveIcon) {
+                        return (
+                            <Marker
+                                position={[location.lat, location.lon]}
+                                icon={ICON}
+                            >
+                                <Popup>
+                                    {location.tagName ?? ""} -{" "}
+                                    {location.display_name}
+                                </Popup>
+                            </Marker>
+                        );
+                    }
+
                     return (
-                        <Marker
-                            position={[location.lat, location.lon]}
-                            // icon={ICON}
-                        >
+                        <Marker position={[location.lat, location.lon]}>
                             <Popup>
                                 {location.tagName ?? ""} -{" "}
                                 {location.display_name}

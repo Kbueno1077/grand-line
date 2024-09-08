@@ -15,7 +15,6 @@ const AddedPins = () => {
         non_save_mapPoints,
         favorites,
         getToMapPoint,
-        removeMapPoint,
         addToFavorites,
         removeFromFavorite,
     } = useStoreContext((s) => ({
@@ -24,7 +23,6 @@ const AddedPins = () => {
         addToFavorites: s.addToFavorites,
         removeFromFavorite: s.removeFromFavorite,
         getToMapPoint: s.getToMapPoint,
-        removeMapPoint: s.removeMapPoint,
     }));
 
     const addFavorite = (e, mType) => {
@@ -64,7 +62,6 @@ const AddedPins = () => {
                                     location={pin}
                                     index={index}
                                     getToMapPoint={getToMapPoint}
-                                    removeMapPoint={removeMapPoint}
                                     removeFromFavorites={removeFavorite}
                                     isStatic={false}
                                     addToFavorites={addFavorite}

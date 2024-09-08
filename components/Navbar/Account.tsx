@@ -1,13 +1,13 @@
 "use client";
 import { createClient } from "@/utils/supabase/client";
-import { Avatar, Button, DropdownMenu, Flex, Skeleton } from "@radix-ui/themes";
+import { Avatar, DropdownMenu, Flex, Skeleton } from "@radix-ui/themes";
 import { User } from "@supabase/supabase-js";
 import { useCallback, useState } from "react";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Logout from "./Logout";
+import { useStoreContext } from "@/store/useStoreContext";
 
 function Account({ user }: { user: User | null }) {
     const router = useRouter();
@@ -20,9 +20,17 @@ function Account({ user }: { user: User | null }) {
     const [avatar_url, setAvatarUrl] = useState<string | null>(null);
     const queryClient = useQueryClient();
 
+    const { setUser } = useStoreContext((s) => ({
+        setUser: s.setUser,
+    }));
+
     const getProfile = useCallback(async () => {
         try {
             setLoading(true);
+
+            if (!user) {
+                setUser(null);
+            }
 
             const { data, error, status } = await supabase
                 .from("profiles")

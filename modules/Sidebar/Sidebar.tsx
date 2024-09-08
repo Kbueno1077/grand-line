@@ -5,11 +5,42 @@ import { useStoreContext } from "@/store/useStoreContext";
 import LocationSearch from "../LocationSearch/LocationSearch";
 import AddedPins from "@/components/MapSettings/AddedPins";
 import Favorites from "@/components/MapSettings/Favorites";
+import MyMaps from "@/components/MapSettings/MyMaps";
+import { User } from "@supabase/supabase-js";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-function Sidebar() {
-    const { isSidebarOpen } = useStoreContext((s) => ({
+function Sidebar({ user }: { user: User | null }) {
+    const queryClient = useQueryClient();
+
+    const { isSidebarOpen, loadMaps, setUser } = useStoreContext((s) => ({
+        setUser: s.setUser,
         isSidebarOpen: s.isSidebarOpen,
+        loadMaps: s.loadMaps,
     }));
+
+    const fetchData = async (user: User | null) => {
+        setUser(user || null);
+        await loadMaps(user);
+        return {};
+    };
+
+    // Queries
+    const query = useQuery({
+        queryKey: ["maps", user?.id],
+        queryFn: () => fetchData(user),
+        refetchOnWindowFocus: false,
+    });
+
+    // Mutations
+    const mutation = useMutation({
+        mutationFn: fetchData,
+        onSuccess: () => {
+            // Invalidate and refetch
+            queryClient.invalidateQueries({
+                queryKey: ["maps", user?.id],
+            });
+        },
+    });
 
     return (
         <div
@@ -27,6 +58,7 @@ function Sidebar() {
                 {isSidebarOpen && (
                     <div className="flex flex-col gap-2">
                         <LocationSearch />
+                        <MyMaps />
                         <Favorites />
                         <AddedPins />
                         <MapTypes />

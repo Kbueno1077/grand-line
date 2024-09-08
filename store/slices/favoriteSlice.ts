@@ -1,5 +1,15 @@
 export const favoriteSlice = (set: Function, get: Function) => ({
-    favorites: {},
+    favorites: {
+        Pins: [
+            {
+                display_name: "Love of my Life",
+                osm_id: "1",
+                lat: 22.409756,
+                lon: -79.966421,
+                useLoveIcon: true,
+            },
+        ],
+    },
 
     addToFavorites: (new_favorite, type) => {
         if (!get().favorites[type]) {
@@ -24,7 +34,7 @@ export const favoriteSlice = (set: Function, get: Function) => ({
     },
     removeFromFavorite: (favorite, type) => {
         const newFavorites = get().favorites[type].filter(
-            (item) => item !== favorite
+            (item) => item.osm_id !== favorite.osm_id
         );
 
         set((state) => ({
