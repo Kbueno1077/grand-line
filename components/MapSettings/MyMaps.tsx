@@ -3,23 +3,25 @@
 import * as Accordion from "@radix-ui/react-accordion";
 import { Flex } from "@radix-ui/themes";
 
+import { useStoreContext } from "@/store/useStoreContext";
 import { Earth } from "lucide-react";
 import {
     AccordionContent,
     AccordionTrigger,
 } from "./_components/AccordionComponents";
-import CreateMap from "./_components/CreateMap";
-import { useStoreContext } from "@/store/useStoreContext";
+import CreateMap from "./_components/Maps/CreateMap";
 import MapsCard from "./Cards/MapsCard";
 
 const MyMaps = () => {
     const { maps, mapSelected, selectMap } = useStoreContext((s) => {
         return {
             maps: s.maps,
+            createMap: s.createMap,
             mapSelected: s.mapSelected,
             selectMap: s.selectMap,
         };
     });
+    console.log(maps);
 
     return (
         <Accordion.Root type="single" defaultValue="item-1" collapsible>

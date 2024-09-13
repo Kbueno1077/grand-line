@@ -28,7 +28,6 @@ const Favorites = () => {
         addToFavorites: s.addToFavorites,
         changeMapType: s.changeMapType,
     }));
-    console.log("🚀 ~ Favorites ~ favorites:", favorites);
 
     const addFavorite = (e, mType) => {
         e.stopPropagation();

@@ -1,9 +1,9 @@
+import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
 import { GeistSans } from "geist/font/sans";
+import { Viewport } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
-import Footer from "@/components/Footer/Footer";
-import { Viewport } from "next";
 
 const defaultUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`

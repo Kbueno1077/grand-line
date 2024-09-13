@@ -1,14 +1,6 @@
 export const favoriteSlice = (set: Function, get: Function) => ({
     favorites: {
-        Pins: [
-            {
-                display_name: "Love of my Life",
-                osm_id: "1",
-                lat: 22.409756,
-                lon: -79.966421,
-                useLoveIcon: true,
-            },
-        ],
+        Pins: [],
     },
 
     addToFavorites: (new_favorite, type) => {

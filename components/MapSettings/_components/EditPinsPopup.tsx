@@ -7,6 +7,7 @@ import NameFieldUpdate from "./NameFieldUpdate";
 import React from "react";
 
 function EditPinsPopup({ location, index }) {
+    const [isLoading, setIsLoading] = React.useState(false);
     const [nameValue, setNameValue] = React.useState(
         location.tagName ?? location.display_name
     );
@@ -20,6 +21,17 @@ function EditPinsPopup({ location, index }) {
 
     const handleChangeName = (e: any) => {
         setNameValue(e.target.value);
+    };
+
+    const handleUpdateName = async () => {
+        setIsLoading(true);
+        try {
+            await changeMapPointDisplayName(nameValue, index);
+        } catch (error) {
+            console.error("Error updating pin name:", error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
