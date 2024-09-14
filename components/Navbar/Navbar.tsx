@@ -2,6 +2,7 @@ import Link from "next/link";
 import AuthModule from "../../modules/AuthModule/AuthModule";
 import { ThemeSwitcher } from "../ThemeSwitcher/ThemeSwitcher";
 import SidebarToggle from "./SidebarToggle";
+import GlobalLoader from "../GlobalLoader/GlobalLoader";
 
 function Navbar() {
     return (
@@ -16,6 +17,7 @@ function Navbar() {
                 </div>
 
                 <div className="flex gap-3 items-center">
+                    <GlobalLoader />
                     <ThemeSwitcher />
                     <AuthModule />
                 </div>

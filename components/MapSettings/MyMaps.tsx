@@ -21,7 +21,6 @@ const MyMaps = () => {
             selectMap: s.selectMap,
         };
     });
-    console.log(maps);
 
     return (
         <Accordion.Root type="single" defaultValue="item-1" collapsible>

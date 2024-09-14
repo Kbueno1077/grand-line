@@ -1,12 +1,13 @@
 "use client";
 
+import { Map, MapType } from "@/utils/types";
 import { createStore } from "zustand";
 import { persist } from "zustand/middleware";
-import { createLayoutSlice } from "./slices/layoutSlice";
-import { createMapSettingsSlice } from "./slices/mapSettingsSlice";
-import { Map, MapType } from "@/utils/types";
 import { favoriteSlice } from "./slices/favoriteSlice";
+import { createLayoutSlice } from "./slices/layoutSlice";
+import { createPointSlice } from "./slices/mapPointSlice";
 import { mapsSlice } from "./slices/mapsSlice";
+import { createMapTypeSlice } from "./slices/mapTypeSlice";
 
 export interface StoreProps {
     maps: Map[];
@@ -19,6 +20,7 @@ export interface StoreProps {
     favorites: Object;
     isSidebarOpen: boolean;
     isLoading: boolean;
+    isGlobalLoading: boolean;
     user: any;
 
     loadMaps: (user) => void;
@@ -41,6 +43,7 @@ export interface StoreProps {
     // LAYOUT
     setIsSidebarOpen: (isSidebarOpen: boolean) => void;
     setIsLoading: (isLoading: boolean) => void;
+    setIsGlobalLoading: (isLoading: boolean) => void;
 }
 export type MapStore = ReturnType<typeof createMapsStore>;
 
@@ -54,15 +57,16 @@ export const createMapsStore = (initProps: InitialProps) => {
 
                 //Slices
                 ...createLayoutSlice(set, get),
-                ...createMapSettingsSlice(set, get),
+                ...createPointSlice(set, get),
+                ...createMapTypeSlice(set, get),
                 ...favoriteSlice(set, get),
                 ...mapsSlice(set, get),
             }),
             {
                 name: "save-maps-config",
                 partialize: (state) => ({
-                    non_save_mapPoints: state.non_save_mapPoints,
                     favorites: state.favorites,
+                    mapType: state.mapType,
                 }),
             }
         )

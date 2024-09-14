@@ -39,7 +39,11 @@ function EditMapsPopup({ map }) {
     return (
         <Popover.Root>
             <Popover.Trigger>
-                <IconButton className="cursor-pointer" variant="soft">
+                <IconButton
+                    onClick={(e) => e.stopPropagation()}
+                    className="cursor-pointer"
+                    variant="soft"
+                >
                     <Settings2 />
                 </IconButton>
             </Popover.Trigger>

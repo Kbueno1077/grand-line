@@ -8,7 +8,7 @@ export const mapsSlice = (set: Function, get: Function) => ({
 
     loadMaps: async (user) => {
         try {
-            get().setIsLoading(true);
+            get().setIsGlobalLoading(true);
 
             const { data, error } = await supabase
                 .from("maps")
@@ -26,7 +26,7 @@ export const mapsSlice = (set: Function, get: Function) => ({
                 maps: data,
             }));
 
-            get().setIsLoading(false);
+            get().setIsGlobalLoading(false);
         } catch (error: any) {
             console.error("Error loading maps", error);
             const errorMessage = error?.message
@@ -34,7 +34,7 @@ export const mapsSlice = (set: Function, get: Function) => ({
                 : "An unexpected error occurred while loading your maps";
 
             // showToast(errorMessage, "error");
-            get().setIsLoading(false);
+            get().setIsGlobalLoading(false);
 
             return error instanceof Error
                 ? error
@@ -42,17 +42,47 @@ export const mapsSlice = (set: Function, get: Function) => ({
         }
     },
 
-    selectMap: (map) => {
-        set((state) => ({
-            ...state,
-            mapSelected: map,
-        }));
+    selectMap: async (map) => {
+        try {
+            get().setIsGlobalLoading(true);
+
+            const { data, error } = await supabase
+                .from("map_points")
+                .select("*")
+                .eq("map_id", map.id);
+
+            if (error) throw error;
+
+            if (!data) {
+                throw new Error("No points data returned from the server");
+            }
+
+            const parsedMapPoints = data.map((point) => {
+                try {
+                    return JSON.parse(point.point_data);
+                } catch (e) {
+                    throw new Error("Error parsing map points");
+                }
+            });
+
+            set((state) => ({
+                ...state,
+                non_save_mapPoints: parsedMapPoints,
+                mapSelected: map,
+            }));
+
+            get().setIsGlobalLoading(false);
+        } catch (error) {
+            get().setIsGlobalLoading(false);
+
+            console.error("Error loading map points", error);
+        }
     },
 
     createMap: async (map) => {
         try {
             const user = get().user;
-            console.log(user);
+            get().setIsGlobalLoading(true);
 
             const { data, error } = await supabase
                 .from("maps")
@@ -76,13 +106,18 @@ export const mapsSlice = (set: Function, get: Function) => ({
                 ...state,
                 maps: [...state.maps, data],
             }));
+
+            get().setIsGlobalLoading(false);
         } catch (error) {
             console.error("Error creating map", error);
-            throw error;
+
+            get().setIsGlobalLoading(false);
         }
     },
     deleteMap: async (map) => {
         try {
+            get().setIsGlobalLoading(true);
+
             const { data, error } = await supabase
                 .from("maps")
                 .delete()
@@ -92,15 +127,20 @@ export const mapsSlice = (set: Function, get: Function) => ({
 
             set((state) => ({
                 ...state,
-                maps: state.maps.filter((item) => item.osm_id !== map.osm_id),
+                maps: state.maps.filter((item) => item.id !== map.id),
             }));
+
+            get().setIsGlobalLoading(false);
         } catch (error) {
             console.error("Error deleting map", error);
-            throw error;
+
+            get().setIsGlobalLoading(false);
         }
     },
     changeMapName: async (map) => {
         try {
+            get().setIsGlobalLoading(true);
+
             const { data, error } = await supabase
                 .from("maps")
                 .update({ name: map.name })
@@ -116,9 +156,11 @@ export const mapsSlice = (set: Function, get: Function) => ({
                         : item
                 ),
             }));
+
+            get().setIsGlobalLoading(false);
         } catch (error) {
+            get().setIsGlobalLoading(false);
             console.error("Error changing map name", error);
-            throw error;
         }
     },
 });

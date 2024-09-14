@@ -2,6 +2,11 @@ export const createLayoutSlice = (set: Function, get: Function) => ({
     isSidebarOpen: true,
     isLoading: false,
     user: null,
+    isGlobalLoading: false,
+
+    setIsGlobalLoading: (isLoading: boolean) => {
+        set({ isGlobalLoading: isLoading });
+    },
 
     setUser: (user) => {
         set((state) => ({
