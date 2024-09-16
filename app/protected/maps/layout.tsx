@@ -1,4 +1,5 @@
 import Sidebar from "@/modules/Sidebar/Sidebar";
+import { StoreProvider } from "@/store/StoreProvider";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
@@ -25,7 +26,7 @@ export default async function Layout({
                     height: "calc(100dvh - 63px)",
                 }}
             >
-                <Sidebar user={user} />
+                <Sidebar />
                 {children}
             </div>
         </div>

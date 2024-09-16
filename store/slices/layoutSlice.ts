@@ -1,7 +1,6 @@
 export const createLayoutSlice = (set: Function, get: Function) => ({
     isSidebarOpen: true,
     isLoading: false,
-    user: null,
     isGlobalLoading: false,
 
     setIsGlobalLoading: (isLoading: boolean) => {

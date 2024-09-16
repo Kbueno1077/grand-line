@@ -1,6 +1,6 @@
 "use client";
 
-import { Map, MapType } from "@/utils/types";
+import { Map, MapPoint, MapType } from "@/utils/types";
 import { createStore } from "zustand";
 import { persist } from "zustand/middleware";
 import { favoriteSlice } from "./slices/favoriteSlice";
@@ -23,19 +23,19 @@ export interface StoreProps {
     isGlobalLoading: boolean;
     user: any;
 
-    loadMaps: (user) => void;
+    loadMaps: () => void;
     selectMap: (map: Map) => void;
     createMap: (map: Map) => void;
     deleteMap: (map: Map) => void;
     changeMapName: (map: Map) => void;
 
     loadFavoritesByType: (type: string, map: Map) => void;
-    addToFavorites: (new_favorite: any, type: string) => void;
+    addToFavorites: (new_favorite: MapPoint | MapType, type: string) => void;
     removeFromFavorite: (favorite: any, type: string) => void;
 
-    getToMapPoint: (mapPoint: any) => void;
-    addMapPoint: (mapPoint: any) => void;
-    removeMapPoint: (mapPoint: any) => void;
+    getToMapPoint: (mapPoint: MapPoint) => void;
+    addMapPoint: (mapPoint: MapPoint) => void;
+    removeMapPoint: (mapPoint: MapPoint) => void;
     setUser: (user: any) => void;
 
     changeMapType: (mapType: MapType) => void;
@@ -48,7 +48,9 @@ export interface StoreProps {
 }
 export type MapStore = ReturnType<typeof createMapsStore>;
 
-type InitialProps = {};
+type InitialProps = {
+    user: any;
+};
 
 export const createMapsStore = (initProps: InitialProps) => {
     return createStore<StoreProps>()(

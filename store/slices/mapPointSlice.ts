@@ -2,6 +2,7 @@ import { deepClone } from "../../utils/utils";
 import { typesOfMaps } from "@/utils/utils";
 
 import { createClient } from "@/utils/supabase/client";
+import { MapPoint } from "@/utils/types";
 
 const supabase = createClient();
 
@@ -10,7 +11,7 @@ export const createPointSlice = (set: Function, get: Function) => ({
     non_save_mapPoints: [],
     pinToGetAt: null,
 
-    changeMapPointDisplayName: async (name, index) => {
+    changeMapPointDisplayName: async (name: string, index: number) => {
         try {
             const non_save_mapPoints = deepClone(get().non_save_mapPoints);
             non_save_mapPoints[index].tagName = name;
@@ -41,7 +42,7 @@ export const createPointSlice = (set: Function, get: Function) => ({
         }
     },
 
-    getToMapPoint: (mapPoint) => {
+    getToMapPoint: (mapPoint: MapPoint) => {
         set((state) => ({
             ...state,
             pinToGetAt: {
@@ -51,7 +52,7 @@ export const createPointSlice = (set: Function, get: Function) => ({
         }));
     },
 
-    addMapPoint: async (mapPoint) => {
+    addMapPoint: async (mapPoint: MapPoint) => {
         const user = get().user;
         const mapSelected = get().mapSelected;
 
@@ -112,7 +113,7 @@ export const createPointSlice = (set: Function, get: Function) => ({
         }
     },
 
-    removeMapPoint: async (mapPoint) => {
+    removeMapPoint: async (mapPoint: MapPoint) => {
         const mapSelected = get().mapSelected;
         if (!mapSelected) {
             console.error("No map selected");

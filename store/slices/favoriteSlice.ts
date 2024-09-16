@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/client";
+import { Map, MapPoint, MapType } from "@/utils/types";
 
 const supabase = createClient();
 
@@ -8,7 +9,7 @@ export const favoriteSlice = (set: Function, get: Function) => ({
         Maps: [],
     },
 
-    loadFavoritesByType: async (type, map) => {
+    loadFavoritesByType: async (type: string, map: Map) => {
         try {
             get().setIsGlobalLoading(true);
 
@@ -58,7 +59,7 @@ export const favoriteSlice = (set: Function, get: Function) => ({
         }
     },
 
-    addToFavorites: async (new_favorite, type) => {
+    addToFavorites: async (new_favorite: MapPoint | MapType, type: string) => {
         if (!get().favorites[type]) {
             set((state) => ({
                 ...state,
@@ -102,7 +103,7 @@ export const favoriteSlice = (set: Function, get: Function) => ({
             }
         }
     },
-    removeFromFavorite: async (favorite, type) => {
+    removeFromFavorite: async (favorite: MapPoint | MapType, type: string) => {
         try {
             const { error } = await supabase.from("favorites").delete().match({
                 id: favorite.id,

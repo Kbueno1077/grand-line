@@ -1,6 +1,4 @@
 import MapModule from "@/modules/MapModule/MapModule";
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
 
 export default async function ProtectedPage() {
     return (

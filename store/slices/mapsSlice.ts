@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/client";
+import { Map } from "@/utils/types";
 
 const supabase = createClient();
 
@@ -6,8 +7,10 @@ export const mapsSlice = (set: Function, get: Function) => ({
     maps: [],
     mapSelected: null,
 
-    loadMaps: async (user) => {
+    loadMaps: async () => {
         try {
+            const user = get().user;
+
             get().setIsGlobalLoading(true);
 
             const { data, error } = await supabase
@@ -41,7 +44,7 @@ export const mapsSlice = (set: Function, get: Function) => ({
         }
     },
 
-    selectMap: async (map) => {
+    selectMap: async (map: Map) => {
         try {
             get().setIsGlobalLoading(true);
 
@@ -83,7 +86,7 @@ export const mapsSlice = (set: Function, get: Function) => ({
         }
     },
 
-    createMap: async (map) => {
+    createMap: async (map: Map) => {
         try {
             const user = get().user;
             get().setIsGlobalLoading(true);
@@ -118,7 +121,7 @@ export const mapsSlice = (set: Function, get: Function) => ({
             get().setIsGlobalLoading(false);
         }
     },
-    deleteMap: async (map) => {
+    deleteMap: async (map: Map) => {
         try {
             get().setIsGlobalLoading(true);
 
@@ -141,7 +144,7 @@ export const mapsSlice = (set: Function, get: Function) => ({
             get().setIsGlobalLoading(false);
         }
     },
-    changeMapName: async (map) => {
+    changeMapName: async (map: Map) => {
         try {
             get().setIsGlobalLoading(true);
 
@@ -155,9 +158,7 @@ export const mapsSlice = (set: Function, get: Function) => ({
             set((state) => ({
                 ...state,
                 maps: state.maps.map((item) =>
-                    item.osm_id === map.osm_id
-                        ? { ...item, name: map.name }
-                        : item
+                    item.id === map.id ? { ...item, name: map.name } : item
                 ),
             }));
 

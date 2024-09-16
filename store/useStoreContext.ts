@@ -5,6 +5,6 @@ import { type StoreProps } from "./zustand";
 
 export function useStoreContext<T>(selector: (state: StoreProps) => T): T {
     const store = useContext(StoreContext);
-    if (!store) throw new Error("Missing BearContext.Provider in the tree");
+    if (!store) throw new Error("Missing StoreContext.Provider in the tree");
     return useStore(store, selector);
 }

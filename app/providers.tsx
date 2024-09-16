@@ -14,12 +14,10 @@ const queryClient = new QueryClient();
 
 export function Providers({ children }: { children: React.ReactNode }) {
     return (
-        <StoreProvider>
-            <QueryClientProvider client={queryClient}>
-                <ThemeProvider attribute="class">
-                    <Theme accentColor="iris">{children}</Theme>
-                </ThemeProvider>
-            </QueryClientProvider>
-        </StoreProvider>
+        <QueryClientProvider client={queryClient}>
+            <ThemeProvider attribute="class">
+                <Theme accentColor="iris">{children}</Theme>
+            </ThemeProvider>
+        </QueryClientProvider>
     );
 }

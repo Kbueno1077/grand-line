@@ -4,6 +4,8 @@ import { GeistSans } from "geist/font/sans";
 import { Viewport } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
+import { StoreProvider } from "@/store/StoreProvider";
+import { createClient } from "@/utils/supabase/server";
 
 const defaultUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
@@ -21,11 +23,17 @@ export const viewport: Viewport = {
     width: "device-width",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    const supabase = createClient();
+
+    const {
+        data: { user },
+    } = await supabase.auth.getUser();
+
     return (
         <html
             lang="en"
@@ -34,15 +42,17 @@ export default function RootLayout({
         >
             <body className="bg-background text-foreground">
                 <Providers>
-                    <Navbar />
+                    <StoreProvider user={user}>
+                        <Navbar />
 
-                    <main className="">
-                        <div className="flex flex-col ">
-                            {children}
+                        <main className="">
+                            <div className="flex flex-col ">
+                                {children}
 
-                            <Footer />
-                        </div>
-                    </main>
+                                <Footer />
+                            </div>
+                        </main>
+                    </StoreProvider>
                 </Providers>
             </body>
         </html>

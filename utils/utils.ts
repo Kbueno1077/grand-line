@@ -22,6 +22,7 @@ export const typesOfMaps = [
     //MAP TILER
 
     {
+        id: "basic",
         name: "Basic",
         url: "https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=9xD3QnX7lh5EgjhfLmMm",
         attribution:
@@ -29,14 +30,15 @@ export const typesOfMaps = [
         img: "/maps/basic.png",
     },
     {
+        id: "basic-dark",
         name: "Basic Dark",
         url: "https://api.maptiler.com/maps/basic-v2-dark/{z}/{x}/{y}.png?key=9xD3QnX7lh5EgjhfLmMm",
         attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         img: "/maps/basic-dark.png",
     },
-
     {
+        id: "satellite",
         name: "Satellite",
         url: "https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=9xD3QnX7lh5EgjhfLmMm",
         attribution:
@@ -45,6 +47,7 @@ export const typesOfMaps = [
     },
 
     {
+        id: "streets",
         name: "Streets",
         url: "https://api.maptiler.com/maps/streets-v2/256/{z}/{x}/{y}.png?key=9xD3QnX7lh5EgjhfLmMm",
         attribution:
@@ -54,6 +57,7 @@ export const typesOfMaps = [
 
     //OPEN STREET MAP
     {
+        id: "osm",
         name: "OpenStreetMap",
         attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -62,6 +66,7 @@ export const typesOfMaps = [
         note: "Free to use for any purpose",
     },
     {
+        id: "stadiamaps",
         name: "OpenStreetMap.Stadiamaps",
         attribution:
             '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -69,6 +74,7 @@ export const typesOfMaps = [
         ext: "png",
     },
     {
+        id: "osm-de",
         name: "OpenStreetMap.DE",
         attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -76,6 +82,7 @@ export const typesOfMaps = [
         ext: "png",
     },
     {
+        id: "osm-ch",
         name: "OpenStreetMap.CH",
         attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',

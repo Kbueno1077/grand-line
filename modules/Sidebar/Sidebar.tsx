@@ -9,28 +9,24 @@ import MyMaps from "@/components/MapSettings/MyMaps";
 import { User } from "@supabase/supabase-js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-function Sidebar({ user }: { user: User | null }) {
+function Sidebar() {
     const queryClient = useQueryClient();
 
-    const { isSidebarOpen, loadMaps, loadFavoritesByType, setUser } =
-        useStoreContext((s) => ({
-            setUser: s.setUser,
-            isSidebarOpen: s.isSidebarOpen,
-            loadMaps: s.loadMaps,
-            loadFavoritesByType: s.loadFavoritesByType,
-        }));
+    const { isSidebarOpen, loadMaps, user } = useStoreContext((s) => ({
+        user: s.user,
+        isSidebarOpen: s.isSidebarOpen,
+        loadMaps: s.loadMaps,
+    }));
 
-    const fetchData = async (user: User | null) => {
-        setUser(user || null);
-        await loadMaps(user);
-
+    const fetchData = async () => {
+        await loadMaps();
         return {};
     };
 
     // Queries
     const query = useQuery({
         queryKey: ["maps", user?.id],
-        queryFn: () => fetchData(user),
+        queryFn: () => fetchData(),
         refetchOnWindowFocus: false,
     });
 
