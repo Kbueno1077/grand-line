@@ -1,9 +1,64 @@
+import { createClient } from "@/utils/supabase/client";
+
+const supabase = createClient();
+
 export const favoriteSlice = (set: Function, get: Function) => ({
     favorites: {
         Pins: [],
+        Maps: [],
     },
 
-    addToFavorites: (new_favorite, type) => {
+    loadFavoritesByType: async (type, map) => {
+        try {
+            get().setIsGlobalLoading(true);
+
+            const { data, error } = await supabase
+                .from("favorites")
+                .select("*")
+                .eq("map_id", map.id)
+                .eq("type", type);
+
+            if (error) throw error;
+
+            if (!data) {
+                throw new Error("No favorites data returned from the server");
+            }
+
+            const parsedFavorites = data
+                .map((favorite) => {
+                    try {
+                        return {
+                            ...JSON.parse(favorite.data),
+                            id: favorite.id,
+                        };
+                    } catch (e) {
+                        console.error("Error parsing favorite data:", e);
+                        return null;
+                    }
+                })
+                .filter(Boolean);
+
+            set((state) => ({
+                ...state,
+                favorites: {
+                    ...state.favorites,
+                    [type]: parsedFavorites,
+                },
+            }));
+
+            get().setIsGlobalLoading(false);
+        } catch (error) {
+            get().setIsGlobalLoading(false);
+            console.error(`Error loading ${type} favorites:`, error);
+            return error instanceof Error
+                ? error
+                : new Error(
+                      `An unknown error occurred while loading ${type} favorites`
+                  );
+        }
+    },
+
+    addToFavorites: async (new_favorite, type) => {
         if (!get().favorites[type]) {
             set((state) => ({
                 ...state,
@@ -12,29 +67,64 @@ export const favoriteSlice = (set: Function, get: Function) => ({
                     [type]: [new_favorite],
                 },
             }));
-
-            return;
         }
 
-        set((state) => ({
-            ...state,
-            favorites: {
-                ...state.favorites,
-                [type]: [...state.favorites[type], new_favorite],
-            },
-        }));
-    },
-    removeFromFavorite: (favorite, type) => {
-        const newFavorites = get().favorites[type].filter(
-            (item) => item.osm_id !== favorite.osm_id
-        );
+        const map = get().mapSelected;
+        console.log(map);
+        if (map) {
+            try {
+                const { data, error } = await supabase
+                    .from("favorites")
+                    .insert({
+                        map_id: map.id,
+                        type: type,
+                        data: JSON.stringify(new_favorite),
+                    })
+                    .select();
 
-        set((state) => ({
-            ...state,
-            favorites: {
-                ...state.favorites,
-                [type]: newFavorites,
-            },
-        }));
+                console.log(data);
+
+                if (error) {
+                    throw error;
+                }
+
+                new_favorite.id = data[0].id;
+
+                set((state) => ({
+                    ...state,
+                    favorites: {
+                        ...state.favorites,
+                        [type]: [...state.favorites[type], new_favorite],
+                    },
+                }));
+            } catch (error) {
+                console.error("Error adding favorite to Supabase:", error);
+            }
+        }
+    },
+    removeFromFavorite: async (favorite, type) => {
+        try {
+            const { error } = await supabase.from("favorites").delete().match({
+                id: favorite.id,
+            });
+
+            if (error) {
+                throw error;
+            }
+
+            const newFavorites = get().favorites[type].filter(
+                (item) => item.id !== favorite.id
+            );
+
+            set((state) => ({
+                ...state,
+                favorites: {
+                    ...state.favorites,
+                    [type]: newFavorites,
+                },
+            }));
+        } catch (error) {
+            console.error("Error removing favorite from Supabase:", error);
+        }
     },
 });

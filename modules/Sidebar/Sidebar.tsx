@@ -12,15 +12,18 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 function Sidebar({ user }: { user: User | null }) {
     const queryClient = useQueryClient();
 
-    const { isSidebarOpen, loadMaps, setUser } = useStoreContext((s) => ({
-        setUser: s.setUser,
-        isSidebarOpen: s.isSidebarOpen,
-        loadMaps: s.loadMaps,
-    }));
+    const { isSidebarOpen, loadMaps, loadFavoritesByType, setUser } =
+        useStoreContext((s) => ({
+            setUser: s.setUser,
+            isSidebarOpen: s.isSidebarOpen,
+            loadMaps: s.loadMaps,
+            loadFavoritesByType: s.loadFavoritesByType,
+        }));
 
     const fetchData = async (user: User | null) => {
         setUser(user || null);
         await loadMaps(user);
+
         return {};
     };
 

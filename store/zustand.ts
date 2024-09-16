@@ -29,6 +29,7 @@ export interface StoreProps {
     deleteMap: (map: Map) => void;
     changeMapName: (map: Map) => void;
 
+    loadFavoritesByType: (type: string, map: Map) => void;
     addToFavorites: (new_favorite: any, type: string) => void;
     removeFromFavorite: (favorite: any, type: string) => void;
 

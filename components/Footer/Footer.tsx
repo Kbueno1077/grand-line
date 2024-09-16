@@ -1,5 +1,4 @@
-import { Box, Container, Flex, Text, Link, Separator } from "@radix-ui/themes";
-import { Earth, Github, Linkedin } from "lucide-react";
+import { Earth } from "lucide-react";
 
 export default function Footer() {
     return (

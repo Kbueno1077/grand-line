@@ -33,7 +33,6 @@ export const mapsSlice = (set: Function, get: Function) => ({
                 ? error?.message
                 : "An unexpected error occurred while loading your maps";
 
-            // showToast(errorMessage, "error");
             get().setIsGlobalLoading(false);
 
             return error instanceof Error
@@ -70,6 +69,11 @@ export const mapsSlice = (set: Function, get: Function) => ({
                 non_save_mapPoints: parsedMapPoints,
                 mapSelected: map,
             }));
+
+            await Promise.all([
+                get().loadFavoritesByType("Pins", map),
+                get().loadFavoritesByType("Maps", map),
+            ]);
 
             get().setIsGlobalLoading(false);
         } catch (error) {

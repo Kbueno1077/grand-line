@@ -1,8 +1,8 @@
 import Link from "next/link";
 import AuthModule from "../../modules/AuthModule/AuthModule";
+import GlobalLoader from "../GlobalLoader/GlobalLoader";
 import { ThemeSwitcher } from "../ThemeSwitcher/ThemeSwitcher";
 import SidebarToggle from "./SidebarToggle";
-import GlobalLoader from "../GlobalLoader/GlobalLoader";
 
 function Navbar() {
     return (
