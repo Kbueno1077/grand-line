@@ -30,7 +30,7 @@ function DeleteMap({ map }: { map: any }) {
         <AlertDialog.Root>
             <AlertDialog.Trigger>
                 <Button size="1" color="red" className="cursor-pointer">
-                    Remove Pin
+                    Remove Map
                 </Button>
             </AlertDialog.Trigger>
             <AlertDialog.Content style={{ maxWidth: 450 }}>
