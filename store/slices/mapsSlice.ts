@@ -86,7 +86,7 @@ export const mapsSlice = (set: Function, get: Function) => ({
         }
     },
 
-    createMap: async (map: Map) => {
+    createMap: async (map: { name: string; description: string }) => {
         try {
             const user = get().user;
             get().setIsGlobalLoading(true);

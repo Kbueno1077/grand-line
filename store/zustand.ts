@@ -25,7 +25,7 @@ export interface StoreProps {
 
     loadMaps: () => void;
     selectMap: (map: Map) => void;
-    createMap: (map: Map) => void;
+    createMap: (map: { name: string; description: string }) => void;
     deleteMap: (map: Map) => void;
     changeMapName: (map: Map) => void;
 

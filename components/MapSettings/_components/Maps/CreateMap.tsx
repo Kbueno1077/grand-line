@@ -28,7 +28,7 @@ function CreateMap() {
         }
         setIsLoading(true);
         try {
-            await createMap({ name, description });
+            createMap({ name, description });
             setName("");
             setDescription("");
         } catch (error) {
