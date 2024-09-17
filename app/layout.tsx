@@ -1,23 +1,51 @@
 import Footer from "@/components/Footer/Footer";
-import Navbar from "@/components/Navbar/Navbar";
 import { GeistSans } from "geist/font/sans";
+import type { Metadata } from "next";
 import { Viewport } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
-import { StoreProvider } from "@/store/StoreProvider";
-import { createClient } from "@/utils/supabase/server";
-import Link from "next/link";
-import { Button } from "@radix-ui/themes";
-import GoToMaps from "@/components/GlobeHero/GoToMaps";
 
-const defaultUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
+export const metadata: Metadata = {
+    title: {
+        default: "Grand Line Maps",
+        template: "%s | Grand Line Maps",
+    },
+    description: "Create and share custom maps of your personal desire",
+    keywords: ["maps", "custom maps", "personal journey", "Grand Line"],
+    authors: [{ name: "Kevin Bueno", url: "https://www.kbueno-studio.com/" }],
+    creator: "WorkinWeb",
+    publisher: "WorkinWeb",
+    formatDetection: {
+        email: false,
+        address: false,
+        telephone: false,
+    },
+    openGraph: {
+        title: "Grand Line Maps",
+        description:
+            "Create and share custom maps of your personal journey inspired by One Piece",
+        url: "https://grandlinemaps.com",
+        siteName: "Grand Line Maps",
+        images: [
+            {
+                url: "https://grandlinemaps.com/og-image.jpg",
+                width: 1200,
+                height: 630,
+                alt: "Grand Line Maps - Create Your Journey",
+            },
+        ],
+        locale: "en_US",
+        type: "website",
+    },
 
-export const metadata = {
-    metadataBase: new URL(defaultUrl),
-    title: "Next.js and Supabase Starter Kit",
-    description: "The fastest way to build apps with Next.js and Supabase",
+    viewport: {
+        width: "device-width",
+        initialScale: 1,
+        maximumScale: 1,
+    },
+    icons: {
+        icon: "/favicon.ico",
+    },
 };
 
 export const viewport: Viewport = {
@@ -31,12 +59,6 @@ export default async function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const supabase = createClient();
-
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
-
     return (
         <html
             lang="en"

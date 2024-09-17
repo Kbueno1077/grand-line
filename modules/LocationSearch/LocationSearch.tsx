@@ -84,7 +84,7 @@ function LocationSearch() {
     return (
         <div className="flex flex-col gap-2">
             <TextField.Root
-                placeholder="Search the docs…"
+                placeholder="Search the world"
                 value={searchValue}
                 onChange={handleChange}
             >
