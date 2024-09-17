@@ -1,3 +1,4 @@
+import NavbarMaps from "@/components/Navbar/NavbarMaps";
 import Sidebar from "@/modules/Sidebar/Sidebar";
 import { StoreProvider } from "@/store/StoreProvider";
 import { createClient } from "@/utils/supabase/server";
@@ -20,15 +21,19 @@ export default async function Layout({
 
     return (
         <div>
-            <div
-                className="flex"
-                style={{
-                    height: "calc(100dvh - 63px)",
-                }}
-            >
-                <Sidebar />
-                {children}
-            </div>
+            <StoreProvider user={user}>
+                <NavbarMaps />
+
+                <div
+                    className="flex"
+                    style={{
+                        height: "calc(100dvh - 63px)",
+                    }}
+                >
+                    <Sidebar />
+                    {children}
+                </div>
+            </StoreProvider>
         </div>
     );
 }

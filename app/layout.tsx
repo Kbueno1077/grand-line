@@ -6,6 +6,9 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { StoreProvider } from "@/store/StoreProvider";
 import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
+import { Button } from "@radix-ui/themes";
+import GoToMaps from "@/components/GlobeHero/GoToMaps";
 
 const defaultUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
@@ -42,17 +45,11 @@ export default async function RootLayout({
         >
             <body className="bg-background text-foreground">
                 <Providers>
-                    <StoreProvider user={user}>
-                        <Navbar />
+                    <main className="">
+                        <div className="flex flex-col ">{children}</div>
+                    </main>
 
-                        <main className="">
-                            <div className="flex flex-col ">
-                                {children}
-
-                                <Footer />
-                            </div>
-                        </main>
-                    </StoreProvider>
+                    <Footer />
                 </Providers>
             </body>
         </html>

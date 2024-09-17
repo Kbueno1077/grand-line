@@ -11,9 +11,9 @@ export default async function AuthModule() {
     return user ? (
         <Account user={user} />
     ) : (
-        <div className="flex gap-2">
+        <div className="flex gap-4">
             <Button asChild variant={"outline"}>
-                <Link href="/sign-in">Sign in</Link>
+                <Link href="/sign-in">Log in</Link>
             </Button>
             <Button asChild>
                 <Link href="/sign-up">Sign up</Link>

@@ -7,7 +7,6 @@ import { ThemeProvider } from "next-themes";
 
 import { MapStore } from "@/store/zustand";
 import React, { createContext } from "react";
-import { StoreProvider } from "@/store/StoreProvider";
 export const StoreContext = createContext<MapStore | null>(null);
 
 const queryClient = new QueryClient();
