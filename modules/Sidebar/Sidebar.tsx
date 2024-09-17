@@ -8,6 +8,7 @@ import Favorites from "@/components/MapSettings/Favorites";
 import MyMaps from "@/components/MapSettings/MyMaps";
 import { User } from "@supabase/supabase-js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import MyMapsSmall from "@/components/MapSettings/MyMapsSmall";
 
 function Sidebar() {
     const queryClient = useQueryClient();
@@ -55,7 +56,12 @@ function Sidebar() {
                 }`}
             >
                 {isSidebarOpen && (
-                    <div className="flex flex-col gap-2">
+                    <div
+                        className="flex flex-col gap-2 overflow-y-auto pb-4"
+                        style={{
+                            height: "calc(100dvh - 70px)",
+                        }}
+                    >
                         <LocationSearch />
                         <MyMaps />
                         <Favorites />
@@ -65,8 +71,13 @@ function Sidebar() {
                 )}
 
                 {!isSidebarOpen && (
-                    <div className="hidden sm:block">
-                        <p>Contracted</p>
+                    <div
+                        className="hidden sm:block overflow-y-auto"
+                        style={{
+                            height: "calc(100dvh - 70px)",
+                        }}
+                    >
+                        <MyMapsSmall />
                     </div>
                 )}
             </div>

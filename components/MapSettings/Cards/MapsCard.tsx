@@ -1,5 +1,4 @@
 import { Box, Card, Flex, Text } from "@radix-ui/themes";
-import DeleteMap from "../_components/Maps/DeleteMap";
 import EditMapsPopup from "../_components/Maps/EditMapsPopup";
 
 function MapsCard({ map, isSelected, selectMap }) {

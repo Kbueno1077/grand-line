@@ -7,7 +7,6 @@ import { signInAction } from "@/app/actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { SmtpMessage } from "../smtp-message";
 
 export default function Login({ searchParams }: { searchParams: Message }) {
     return (
@@ -52,6 +51,7 @@ export default function Login({ searchParams }: { searchParams: Message }) {
                         <SubmitButton
                             pendingText="Signing In..."
                             formAction={signInAction}
+                            className="cursor-pointer"
                             size={"4"}
                         >
                             Sign in

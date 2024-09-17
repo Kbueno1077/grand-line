@@ -65,14 +65,14 @@ export const typesOfMaps = [
         style: "default",
         note: "Free to use for any purpose",
     },
-    {
-        id: "stadiamaps",
-        name: "OpenStreetMap.Stadiamaps",
-        attribution:
-            '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        url: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
-        ext: "png",
-    },
+    // {
+    //     id: "stadiamaps",
+    //     name: "OpenStreetMap.Stadiamaps",
+    //     attribution:
+    //         '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    //     url: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+    //     ext: "png",
+    // },
     {
         id: "osm-de",
         name: "OpenStreetMap.DE",

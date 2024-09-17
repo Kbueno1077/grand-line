@@ -49,6 +49,13 @@ function EditPinsPopup({ location, index }) {
                             name={nameValue}
                         />
 
+                        {location.tagName && (
+                            <div className="mt-2 px-2 py-4 bg-muted rounded-sm">
+                                <h2 className="text-sm font-bold">Location</h2>
+                                <div>{location.display_name}</div>
+                            </div>
+                        )}
+
                         <Flex gap="3" mt="3" justify="between">
                             <Flex align="center" gap="2" asChild>
                                 <Text as="label" size="2">

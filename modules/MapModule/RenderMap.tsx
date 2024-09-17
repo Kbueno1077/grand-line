@@ -65,6 +65,7 @@ function RenderMap() {
                     if (location.useLoveIcon) {
                         return (
                             <Marker
+                                key={location.id}
                                 position={[location.lat, location.lon]}
                                 icon={ICON}
                             >

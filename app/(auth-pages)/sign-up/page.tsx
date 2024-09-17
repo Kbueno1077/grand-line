@@ -54,6 +54,7 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
                             size={"4"}
                             formAction={signUpAction}
                             pendingText="Signing up..."
+                            className="cursor-pointer"
                         >
                             Sign up
                         </SubmitButton>

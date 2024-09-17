@@ -23,6 +23,10 @@ function LocationSearch() {
 
     const handleChange = (e: any) => {
         setIsLoading(true);
+
+        if (e.target.value.trim() === "") {
+            setIsLoading(false);
+        }
         setSearchValue(e.target.value);
     };
 
@@ -35,7 +39,7 @@ function LocationSearch() {
     const handleSearch = async () => {
         setIsLoading(true);
 
-        if (!debouncedSearchValue.trim()) {
+        if (debouncedSearchValue.trim() === "") {
             setLocationData([]);
             setIsLoading(false);
             return;

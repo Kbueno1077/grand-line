@@ -24,6 +24,8 @@ export const mapsSlice = (set: Function, get: Function) => ({
                 throw new Error("No Data returned from the server");
             }
 
+            if (data.length) get().selectMap(data[0]);
+
             set((state) => ({
                 ...state,
                 maps: data,
