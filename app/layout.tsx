@@ -7,11 +7,11 @@ import { Providers } from "./providers";
 
 export const metadata: Metadata = {
     title: {
-        default: "Grand Line Maps",
-        template: "%s | Grand Line Maps",
+        default: "GrandLine Maps",
+        template: "%s | GrandLine Maps",
     },
     description: "Create and share custom maps of your personal desire",
-    keywords: ["maps", "custom maps", "personal journey", "Grand Line"],
+    keywords: ["maps", "custom maps", "personal journey", "GrandLine"],
     authors: [{ name: "Kevin Bueno", url: "https://www.kbueno-studio.com/" }],
     creator: "WorkinWeb",
     publisher: "WorkinWeb",
@@ -21,17 +21,17 @@ export const metadata: Metadata = {
         telephone: false,
     },
     openGraph: {
-        title: "Grand Line Maps",
+        title: "GrandLine Maps",
         description:
             "Create and share custom maps of your personal journey inspired by One Piece",
         url: "https://grandlinemaps.com",
-        siteName: "Grand Line Maps",
+        siteName: "GrandLine Maps",
         images: [
             {
                 url: "https://grandlinemaps.com/og-image.jpg",
                 width: 1200,
                 height: 630,
-                alt: "Grand Line Maps - Create Your Journey",
+                alt: "GrandLine Maps - Create Your Journey",
             },
         ],
         locale: "en_US",

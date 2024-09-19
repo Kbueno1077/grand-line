@@ -5,12 +5,13 @@ import { User } from "@supabase/supabase-js";
 import { useCallback, useState } from "react";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Logout from "./Logout";
 import Link from "next/link";
 
 function Account({ user }: { user: User | null }) {
     const router = useRouter();
+    const pathname = usePathname();
 
     const supabase = createClient();
     const [loading, setLoading] = useState(true);
@@ -81,7 +82,16 @@ function Account({ user }: { user: User | null }) {
 
             <DropdownMenu.Content className="p-2">
                 <DropdownMenu.Item>Hey, {user?.email}!</DropdownMenu.Item>{" "}
-                <DropdownMenu.Item className="cursor-pointer" asChild>
+                <DropdownMenu.Item
+                    className={`cursor-pointer ${pathname === "/" && "bg-primary/50"}`}
+                    asChild
+                >
+                    <Link href="/">Home</Link>
+                </DropdownMenu.Item>{" "}
+                <DropdownMenu.Item
+                    className={`cursor-pointer ${pathname === "/protected/maps" && "bg-primary/50"}`}
+                    asChild
+                >
                     <Link href="/protected/maps">Go To Maps</Link>
                 </DropdownMenu.Item>{" "}
                 <Logout />

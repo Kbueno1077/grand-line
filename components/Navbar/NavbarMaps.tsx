@@ -11,7 +11,7 @@ function NavbarMaps() {
                 <div className="flex gap-5 items-center font-semibold">
                     <SidebarToggle />
                     <Link href={"/"} className="text-xl">
-                        Grand Line Maps
+                        GrandLine Maps
                     </Link>
                     <div className="flex items-center gap-2"></div>
                 </div>

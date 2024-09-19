@@ -5,7 +5,7 @@ function Logout() {
         <form action={signOutAction}>
             <DropdownMenu.Item className="cursor-pointer" itemType="submit">
                 <button type="submit" className="w-full text-left">
-                    Sign out
+                    Log off
                 </button>
             </DropdownMenu.Item>{" "}
         </form>

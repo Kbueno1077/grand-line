@@ -54,7 +54,7 @@ export default function Login({ searchParams }: { searchParams: Message }) {
                             className="cursor-pointer"
                             size={"4"}
                         >
-                            Sign in
+                            Log in
                         </SubmitButton>
                         <FormMessage message={searchParams} />
                     </div>

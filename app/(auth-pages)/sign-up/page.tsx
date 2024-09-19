@@ -61,10 +61,6 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
                         <FormMessage message={searchParams} />
                     </div>
                 </form>
-
-                <div className="mt-5">
-                    <SmtpMessage />
-                </div>
             </div>
         </>
     );

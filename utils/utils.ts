@@ -56,61 +56,61 @@ export const typesOfMaps = [
     },
 
     //OPEN STREET MAP
-    {
-        id: "osm",
-        name: "OpenStreetMap",
-        attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        style: "default",
-        note: "Free to use for any purpose",
-    },
     // {
-    //     id: "stadiamaps",
-    //     name: "OpenStreetMap.Stadiamaps",
+    //     id: "osm",
+    //     name: "OpenStreetMap",
     //     attribution:
-    //         '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    //     url: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+    //         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    //     url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    //     style: "default",
+    //     note: "Free to use for any purpose",
+    // },
+    // // {
+    // //     id: "stadiamaps",
+    // //     name: "OpenStreetMap.Stadiamaps",
+    // //     attribution:
+    // //         '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    // //     url: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+    // //     ext: "png",
+    // // },
+    // {
+    //     id: "osm-de",
+    //     name: "OpenStreetMap.DE",
+    //     attribution:
+    //         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    //     url: "https://tile.openstreetmap.de/{z}/{x}/{y}.png",
     //     ext: "png",
     // },
-    {
-        id: "osm-de",
-        name: "OpenStreetMap.DE",
-        attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        url: "https://tile.openstreetmap.de/{z}/{x}/{y}.png",
-        ext: "png",
-    },
-    {
-        id: "osm-ch",
-        name: "OpenStreetMap.CH",
-        attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        url: "https://tile.osm.ch/switzerland/{z}/{x}/{y}.png",
-        ext: "png",
-    },
-    {
-        name: "OpenStreetMap.France",
-        attribution:
-            '&copy; OpenStreetMap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    // {
+    //     id: "osm-ch",
+    //     name: "OpenStreetMap.CH",
+    //     attribution:
+    //         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    //     url: "https://tile.osm.ch/switzerland/{z}/{x}/{y}.png",
+    //     ext: "png",
+    // },
+    // {
+    //     name: "OpenStreetMap.France",
+    //     attribution:
+    //         '&copy; OpenStreetMap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 
-        url: "https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png",
-        ext: "png",
-    },
-    {
-        name: "OpenStreetMap.BZH",
-        attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
-        url: "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
-        ext: "png",
-    },
-    {
-        name: "OpenStreetMap.HOT",
-        attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles courtesy of <a href="http://www.openstreetmap.bzh/" target="_blank">Breton OpenStreetMap Team</a>',
-        url: "https://tile.openstreetmap.bzh/br/{z}/{x}/{y}.png",
-        ext: "png",
-    },
+    //     url: "https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png",
+    //     ext: "png",
+    // },
+    // {
+    //     name: "OpenStreetMap.BZH",
+    //     attribution:
+    //         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
+    //     url: "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+    //     ext: "png",
+    // },
+    // {
+    //     name: "OpenStreetMap.HOT",
+    //     attribution:
+    //         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles courtesy of <a href="http://www.openstreetmap.bzh/" target="_blank">Breton OpenStreetMap Team</a>',
+    //     url: "https://tile.openstreetmap.bzh/br/{z}/{x}/{y}.png",
+    //     ext: "png",
+    // },
 ];
 
 const otherMaps = [
