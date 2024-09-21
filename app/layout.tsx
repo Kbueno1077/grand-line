@@ -3,6 +3,8 @@ import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import { Viewport } from "next";
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
+
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {

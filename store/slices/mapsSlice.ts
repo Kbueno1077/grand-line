@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/client";
 import { Map } from "@/utils/types";
+import { toast } from "react-toastify";
 
 const supabase = createClient();
 
@@ -39,6 +40,7 @@ export const mapsSlice = (set: Function, get: Function) => ({
                 : "An unexpected error occurred while loading your maps";
 
             get().setIsGlobalLoading(false);
+            toast.error(errorMessage);
 
             return error instanceof Error
                 ? error
@@ -83,8 +85,8 @@ export const mapsSlice = (set: Function, get: Function) => ({
             get().setIsGlobalLoading(false);
         } catch (error) {
             get().setIsGlobalLoading(false);
-
             console.error("Error loading map points", error);
+            toast.error("Failed to load map points");
         }
     },
 
@@ -117,10 +119,11 @@ export const mapsSlice = (set: Function, get: Function) => ({
             }));
 
             get().setIsGlobalLoading(false);
+            toast.success("Map created successfully");
         } catch (error) {
             console.error("Error creating map", error);
-
             get().setIsGlobalLoading(false);
+            toast.error("Failed to create map");
         }
     },
     deleteMap: async (map: Map) => {
@@ -140,10 +143,11 @@ export const mapsSlice = (set: Function, get: Function) => ({
             }));
 
             get().setIsGlobalLoading(false);
+            toast.success("Map deleted successfully");
         } catch (error) {
             console.error("Error deleting map", error);
-
             get().setIsGlobalLoading(false);
+            toast.error("Failed to delete map");
         }
     },
     changeMapName: async (map: Map) => {
@@ -165,9 +169,11 @@ export const mapsSlice = (set: Function, get: Function) => ({
             }));
 
             get().setIsGlobalLoading(false);
+            toast.success("Map name changed successfully");
         } catch (error) {
             get().setIsGlobalLoading(false);
             console.error("Error changing map name", error);
+            toast.error("Failed to change map name");
         }
     },
 });
