@@ -66,7 +66,7 @@ export const createPointSlice = (set: Function, get: Function) => ({
         }
 
         const hasMapPoint = get().non_save_mapPoints.find(
-            (item) => item.osm_id === mapPoint.osm_id
+            (item) => item.id === mapPoint.id
         );
 
         if (hasMapPoint) {
@@ -142,7 +142,7 @@ export const createPointSlice = (set: Function, get: Function) => ({
                 ...state,
                 pinToGetAt: null,
                 non_save_mapPoints: state.non_save_mapPoints.filter(
-                    (item) => item !== mapPoint
+                    (item) => item.id !== mapPoint.id
                 ),
             }));
             get().setIsGlobalLoading(false);
