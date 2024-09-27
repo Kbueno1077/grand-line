@@ -12,36 +12,53 @@ export const createPointSlice = (set: Function, get: Function) => ({
     non_save_mapPoints: [],
     pinToGetAt: null,
 
-    changeMapPointDisplayName: async (name: string, index: number) => {
+    updateMapPoint: async (
+        id: string,
+        updates: { customIcon?: string; displayName?: string }
+    ) => {
         try {
             const non_save_mapPoints = deepClone(get().non_save_mapPoints);
-            non_save_mapPoints[index].tagName = name;
+            const index = non_save_mapPoints.findIndex(
+                (point) => point.id === id
+            );
 
-            // Update the point_data in the database
-            const mapSelected = get().mapSelected;
-            if (mapSelected) {
-                get().setIsGlobalLoading(true);
-                const { error } = await supabase
-                    .from("map_points")
-                    .update({
-                        point_data: JSON.stringify(non_save_mapPoints[index]),
-                    })
-                    .eq("map_id", mapSelected.id)
-                    .eq("id", non_save_mapPoints[index].id);
+            if (index !== -1) {
+                if (updates.customIcon) {
+                    non_save_mapPoints[index].custom_marker =
+                        updates.customIcon;
+                }
+                if (updates.displayName) {
+                    non_save_mapPoints[index].tagName = updates.displayName;
+                }
 
-                if (error) throw error;
+                // Update the point_data in the database
+                const mapSelected = get().mapSelected;
+                if (mapSelected) {
+                    get().setIsGlobalLoading(true);
+                    const { error } = await supabase
+                        .from("map_points")
+                        .update({
+                            point_data: JSON.stringify(
+                                non_save_mapPoints[index]
+                            ),
+                        })
+                        .eq("map_id", mapSelected.id)
+                        .eq("id", id);
 
-                set((state) => ({
-                    ...state,
-                    non_save_mapPoints,
-                }));
-                get().setIsGlobalLoading(false);
-                toast.success("Map point name updated successfully");
+                    if (error) throw error;
+
+                    set((state) => ({
+                        ...state,
+                        non_save_mapPoints,
+                    }));
+                    get().setIsGlobalLoading(false);
+                    toast.success("Map point updated successfully");
+                }
             }
         } catch (error) {
             console.error("Error updating map point:", error);
             get().setIsGlobalLoading(false);
-            toast.error("Failed to update map point name");
+            toast.error("Failed to update map point");
         }
     },
 

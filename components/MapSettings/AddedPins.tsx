@@ -60,7 +60,6 @@ const AddedPins = () => {
                                 <DroppedPinCard
                                     key={pin.osm_id}
                                     location={pin}
-                                    index={index}
                                     getToMapPoint={getToMapPoint}
                                     removeFromFavorites={removeFavorite}
                                     isStatic={false}

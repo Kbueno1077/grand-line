@@ -39,7 +39,10 @@ export interface StoreProps {
     setUser: (user: any) => void;
 
     changeMapType: (mapType: MapType) => void;
-    changeMapPointDisplayName: (name: string, index: number) => void;
+    updateMapPoint: (
+        id: string,
+        customData: { displayName: string; customIcon: string } // Renamed parameter
+    ) => void;
 
     // LAYOUT
     setIsSidebarOpen: (isSidebarOpen: boolean) => void;

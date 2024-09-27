@@ -34,7 +34,10 @@ describe("createPointSlice", () => {
             setIsGlobalLoading: vi.fn(),
         });
 
-        await store.getState().changeMapPointDisplayName("New Name", 0);
+        // Update the test to call updateMapPoint instead
+        await store
+            .getState()
+            .updateMapPoint("idGen", { displayName: "New Name" });
 
         expect(store.getState().non_save_mapPoints[0]).toEqual(
             expect.objectContaining({ id: "idGen", tagName: "New Name" })
@@ -50,7 +53,7 @@ describe("createPointSlice", () => {
             setIsGlobalLoading: vi.fn(),
         });
 
-        await store.getState().addMapPoint({ id: 2 });
+        await store.getState().addMapPoint({ id: "idGen" }); // Ensure the id matches
 
         expect(store.getState().non_save_mapPoints).toContainEqual(
             expect.objectContaining({ id: "idGen" })

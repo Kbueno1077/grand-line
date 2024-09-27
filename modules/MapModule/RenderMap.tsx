@@ -41,6 +41,14 @@ function RenderMap() {
         iconSize: [32, 32],
     });
 
+    const defaultIcon = icon({
+        iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
+        shadowUrl:
+            "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+    });
+
     return (
         <div>
             <MapContainer
@@ -57,28 +65,20 @@ function RenderMap() {
                     url={mapType?.url || ""}
                 />
 
-                {/* <Marker position={[22.409756, -79.966421]} icon={ICON}>
-                    <Popup>Love of my Life</Popup>
-                </Marker> */}
-
                 {non_save_mapPoints.map((location) => {
-                    if (location.useLoveIcon) {
-                        return (
-                            <Marker
-                                key={location.id}
-                                position={[location.lat, location.lon]}
-                                icon={ICON}
-                            >
-                                <Popup>
-                                    {location.tagName ?? ""} -{" "}
-                                    {location.display_name}
-                                </Popup>
-                            </Marker>
-                        );
-                    }
+                    const markerIcon = location.custom_marker
+                        ? icon({
+                              iconUrl: location.custom_marker,
+                              iconSize: [32, 32],
+                          })
+                        : undefined;
 
                     return (
-                        <Marker position={[location.lat, location.lon]}>
+                        <Marker
+                            key={location.id}
+                            position={[location.lat, location.lon]}
+                            icon={markerIcon ?? defaultIcon}
+                        >
                             <Popup>
                                 {location.tagName ?? ""} -{" "}
                                 {location.display_name}

@@ -4,38 +4,52 @@ import { useStoreContext } from "@/store/useStoreContext";
 import { Box, Button, Flex, IconButton, Popover, Text } from "@radix-ui/themes";
 import { Settings2 } from "lucide-react";
 import NameFieldUpdate from "./NameFieldUpdate";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
-function EditPinsPopup({ location, index }) {
-    const [isLoading, setIsLoading] = React.useState(false);
+const icons = [
+    "/icons/heart.png",
+    "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
+];
+
+function EditPinsPopup({ location }) {
     const [nameValue, setNameValue] = React.useState(
         location.tagName ?? location.display_name
     );
-
-    const { removeMapPoint, changeMapPointDisplayName } = useStoreContext(
-        (s) => ({
-            removeMapPoint: s.removeMapPoint,
-            changeMapPointDisplayName: s.changeMapPointDisplayName,
-        })
+    const [customIcon, setCustomIcon] = React.useState(
+        location.custom_marker || ""
     );
+    const [isOpen, setIsOpen] = React.useState(false);
+
+    const { removeMapPoint, updateMapPoint } = useStoreContext((s) => ({
+        removeMapPoint: s.removeMapPoint,
+        updateMapPoint: s.updateMapPoint,
+    }));
 
     const handleChangeName = (e: any) => {
         setNameValue(e.target.value);
     };
 
     const handleUpdateName = async () => {
-        setIsLoading(true);
         try {
-            await changeMapPointDisplayName(nameValue, index);
+            await updateMapPoint(location.id, {
+                displayName: nameValue,
+                customIcon,
+            });
         } catch (error) {
             console.error("Error updating pin name:", error);
-        } finally {
-            setIsLoading(false);
         }
     };
 
+    useEffect(() => {
+        if (isOpen) {
+            setNameValue((location.tagName ?? location.display_name) || "");
+            setCustomIcon(location.custom_marker || "");
+        }
+    }, [isOpen]);
+
     return (
-        <Popover.Root>
+        <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
             <Popover.Trigger>
                 <IconButton className="cursor-pointer" variant="soft">
                     <Settings2 />
@@ -55,6 +69,33 @@ function EditPinsPopup({ location, index }) {
                                 <div>{location.display_name}</div>
                             </div>
                         )}
+                        {/* Custom Icon Selection */}
+                        <Flex
+                            gap="2"
+                            wrap="wrap"
+                            overflowY="auto"
+                            className="mt-2"
+                        >
+                            {icons.map((icon, index) => (
+                                <Box
+                                    key={index}
+                                    className={`p-2 ${customIcon === icon ? "bg-primary hover:bg-primary text-white rounded-sm" : "bg-transparent hover:bg-gray-200 transition-all duration-300 ease-in-out border border-gray-300 cursor-pointer rounded-sm"}`}
+                                    onClick={() => setCustomIcon(icon)}
+                                >
+                                    <Image
+                                        src={icon}
+                                        alt={`Icon ${index + 1}`}
+                                        width={24}
+                                        height={24}
+                                        layout="fixed"
+                                        objectFit="cover"
+                                        style={{
+                                            borderRadius: "0px", // Changed border-radius to make the icon square
+                                        }}
+                                    />
+                                </Box>
+                            ))}
+                        </Flex>
 
                         <Flex gap="3" mt="3" justify="between">
                             <Flex align="center" gap="2" asChild>
@@ -75,14 +116,9 @@ function EditPinsPopup({ location, index }) {
                                     <Button
                                         className="cursor-pointer"
                                         size="1"
-                                        onClick={() =>
-                                            changeMapPointDisplayName(
-                                                nameValue,
-                                                index
-                                            )
-                                        }
+                                        onClick={handleUpdateName}
                                     >
-                                        Change Name
+                                        Update
                                     </Button>
                                 </div>
                             </Popover.Close>

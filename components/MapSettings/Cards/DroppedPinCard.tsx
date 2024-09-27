@@ -1,12 +1,10 @@
-import { Box, Card, Flex, IconButton, Text } from "@radix-ui/themes";
-import { CircleX, Goal, Star } from "lucide-react";
-import NameFieldUpdate from "../_components/NameFieldUpdate";
+import { Box, Card, IconButton, Text } from "@radix-ui/themes";
+import { Goal, Star } from "lucide-react";
 import EditPinsPopup from "../_components/EditPinsPopup";
 
 function DroppedPinCard({
     location,
     getToMapPoint,
-    index = -1,
     removeFromFavorites,
     addToFavorites,
     isFavorite,
@@ -47,9 +45,7 @@ function DroppedPinCard({
                         <Goal size={20} />
                     </IconButton>
 
-                    {!isStatic && (
-                        <EditPinsPopup location={location} index={index} />
-                    )}
+                    {!isStatic && <EditPinsPopup location={location} />}
                 </div>
             </Box>
         </Card>

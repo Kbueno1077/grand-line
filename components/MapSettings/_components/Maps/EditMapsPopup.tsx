@@ -13,13 +13,14 @@ import {
     TextField,
 } from "@radix-ui/themes";
 import { Settings2 } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import DeleteMap from "./DeleteMap";
 
 function EditMapsPopup({ map }) {
     const [name, setName] = React.useState(map.name);
     const [description, setDescription] = React.useState(map.description);
     const [isLoading, setIsLoading] = React.useState(false);
+    const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
 
     const { changeMapName } = useStoreContext((s) => ({
         changeMapName: s.changeMapName,
@@ -36,8 +37,15 @@ function EditMapsPopup({ map }) {
         }
     };
 
+    useEffect(() => {
+        if (isPopoverOpen) {
+            setName(map.name);
+            setDescription(map.description);
+        }
+    }, [isPopoverOpen]);
+
     return (
-        <Popover.Root>
+        <Popover.Root open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
             <Popover.Trigger>
                 <IconButton
                     onClick={(e) => e.stopPropagation()}
