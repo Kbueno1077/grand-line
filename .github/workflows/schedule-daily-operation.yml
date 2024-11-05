@@ -2,7 +2,7 @@ name: Schedule Daily Operation
 
 on:
     schedule:
-        - cron: "0 2 * * *" # Runs at 2:00 AM UTC every day
+        - cron: "0 3 * * *" # Runs at 2:00 AM UTC every day
 
 jobs:
     trigger_daily_operation:
