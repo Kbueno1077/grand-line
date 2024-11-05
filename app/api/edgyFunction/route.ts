@@ -8,13 +8,13 @@ export async function GET(request: Request) {
 
     try {
         const { data, error } = await supabase
-            .from("Tickets")
+            .from("maps")
             .update({ description: "Map Description 1" })
             .eq("id", "b2755a5b-a90e-4211-b791-b2c59fb7b982")
             .select();
 
         const { data: data2, error: error2 } = await supabase
-            .from("Tickets")
+            .from("maps")
             .update({ description: "Map Description" })
             .eq("id", "b2755a5b-a90e-4211-b791-b2c59fb7b982")
             .select();
